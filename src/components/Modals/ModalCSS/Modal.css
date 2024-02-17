@@ -52,14 +52,12 @@ th {
 
 .modalButtonA{
     color: #46139f;
-    background-color: aqua;
     border: none;
     outline: none;
     padding: 7px 20px;
 }
 .modalButtonB{
     color: #ff7f50;
-    background-color: rgb(90, 104, 104);
     border: none;
     outline: none;
     padding: 7px 20px;

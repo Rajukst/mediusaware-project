@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "./ModalCSS/Modal.css"
+import ContactDetailsModal from './ModalButtons/ContactDetailsModal';
 
 const ModalA = ({ closeModalA }) => {
     const [contacts, setContacts] = useState([]);
@@ -9,6 +10,8 @@ const ModalA = ({ closeModalA }) => {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [showEvenOnly, setShowEvenOnly] = useState(false);
+    const [selectedContact, setSelectedContact] = useState(null);
+    const [showContactDetailsModal, setShowContactDetailsModal] = useState(false);
     const observer = useRef();
 
     useEffect(() => {
@@ -98,6 +101,14 @@ const ModalA = ({ closeModalA }) => {
                 setFilteredContacts(contacts);
         }
     };
+    const openContactDetailsModal = (contact) => {
+        setSelectedContact(contact);
+        setShowContactDetailsModal(true);
+    };
+
+    const closeContactDetailsModal = () => {
+        setShowContactDetailsModal(false);
+    };
 
     return (
         <>
@@ -138,7 +149,7 @@ const ModalA = ({ closeModalA }) => {
                             </thead>
                             <tbody>
                                 {filteredContacts.map((contact, index) => (
-                                    <tr key={index + 1}>
+                                   <tr key={index + 1} onClick={() => openContactDetailsModal(contact)}>
                                         <td>{showEvenOnly ? (index + 1) * 2 : index + 1}</td>
                                         <td>{contact.phone}</td>
                                         <td>{contact.country.name}</td>
@@ -152,6 +163,7 @@ const ModalA = ({ closeModalA }) => {
                     </div>
                 </div>
             </div>
+            {showContactDetailsModal && <ContactDetailsModal contact={selectedContact} closeModal={closeContactDetailsModal} />}
         </>
     );
 };
